@@ -43,6 +43,10 @@ public class Game
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
         
+        // give inventories items for rooms
+        // and create player inventory
+        Inventory playerInventory = new Inventory();
+        
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", lab);
