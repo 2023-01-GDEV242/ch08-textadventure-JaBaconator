@@ -45,7 +45,12 @@ public class Game
         
         // give inventories items for rooms
         // and create player inventory
-        Inventory playerInventory = new Inventory();
+        Inventory playerInven = new Inventory();
+        Inventory outsideInven = new Inventory();
+        Inventory theaterInven = new Inventory();
+        Inventory pubInven = new Inventory();
+        Inventory labInven = new Inventory();
+        Inventory officeInven = new Inventory();
         
         // initialise room exits
         outside.setExit("east", theater);
