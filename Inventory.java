@@ -35,5 +35,14 @@ public class Inventory
     public void removeItem(String item) {
         inventory.remove(item);
     }
-    //public void swapItem(String item);
+    /*
+    public void swapItem(String item1, String item2, int location, ArrayList<String> arrlist){
+        ArrayList<String> temp = new ArrayList<String>();
+        //add old item to temp array list
+        temp.add(item1);
+        //replace new item with old item.
+        arrlist.replace(item2, location);
+        //add item1 to personal inventory.
+        inventory.add(item1)
+    }*/
 }
