@@ -134,7 +134,7 @@ public class Game
                 break;
                 
             case TAKE:
-                takeItem = take(command);
+                takeItem(command);
                 break;
         }
         return wantToQuit;
@@ -196,5 +196,9 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    private String takeItem(Command command) {
+        return "This room doesn't have that item!";
     }
 }

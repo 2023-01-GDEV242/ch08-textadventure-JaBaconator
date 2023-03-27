@@ -35,7 +35,9 @@ public class Inventory
     public void removeItem(String item) {
         inventory.remove(item);
     }
-    
+    public void findItem(String item){ 
+        inventory.contains(item);
+    }
     public void swapItem(String item1, String item2, int location, ArrayList<String> arrlist){
         ArrayList<String> temp = new ArrayList<String>();
         //add old item to temp array list
