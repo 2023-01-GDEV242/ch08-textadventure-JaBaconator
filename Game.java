@@ -199,6 +199,7 @@ public class Game
     }
     
     private String takeItem(Command command) {
+        
         return "This room doesn't have that item!";
     }
 }
