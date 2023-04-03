@@ -30,7 +30,6 @@ public class Room
     public Room(String description) {
         this.description = description;
         exits = new HashMap<>();
-        this.roomInventory = new Inventory();
     }
 
     /**
@@ -42,7 +41,9 @@ public class Room
     {
         exits.put(direction, neighbor);
     }
-
+    public void setInventory(Inventory inventory){
+        roomInventory = inventory;
+    }
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -87,6 +88,10 @@ public class Room
     public Room getExit(String direction) 
     {
         return exits.get(direction);
+    }
+    
+    public Inventory getInventory() {
+        return roomInventory;
     }
 }
 

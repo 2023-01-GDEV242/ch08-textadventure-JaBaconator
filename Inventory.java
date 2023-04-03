@@ -19,12 +19,14 @@ public class Inventory
     }
 
     // prints everything in the inventory
-    public void printInventory() {
-        if(inventory.size() == 0) {
-            System.out.println("You have nothing in your inventory right now.");
+    public void printInventory(boolean player) {
+        if( (inventory.size() == 0) && (player == true) ) {
+            System.out.println("You don't have anything in your inventory right now.");
+        } else if ( (inventory.size() == 0) && (player == false) ) {
+            System.out.println("You see nothing to grab.");
         } else {
             for(int i = inventory.size(); i>0; i--) {
-                System.out.println(inventory.get(i));
+                System.out.println(inventory.get(i-1));
             }
         }
     }
@@ -35,8 +37,8 @@ public class Inventory
     public void removeItem(String item) {
         inventory.remove(item);
     }
-    public void findItem(String item){ 
-        inventory.contains(item);
+    public boolean findItem(String item){ 
+        return inventory.contains(item);
     }
     public void swapItem(String item1, String item2, int location, ArrayList<String> arrlist){
         ArrayList<String> temp = new ArrayList<String>();

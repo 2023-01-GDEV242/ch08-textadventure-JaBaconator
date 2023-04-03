@@ -14,12 +14,17 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
-
+import java.util.Set;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.ArrayList;
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
-        
+    private Inventory playerInven = new Inventory();
+    public HashMap<Room, Inventory> roomInventories;
+    
     /**
      * Create the game and initialise its internal map.
      */
@@ -34,40 +39,94 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office, parkinglot;
+        Room outside, theater, pub, lab, office, parkinglot, library, classroom;
         
         // create the rooms
         outside = new Room("outside the main entrance of the university");
         theater = new Room("in a lecture theater");
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
+        classroom = new Room("in a classroom");
         office = new Room("in the computing admin office");
         parkinglot = new Room("in the parking lot");
+        library = new Room("in the library");
         
-        
-        // give inventories items for rooms
+        // create room inventories
         // and create player inventory
-        Inventory playerInven = new Inventory();
         Inventory outsideInven = new Inventory();
         Inventory theaterInven = new Inventory();
         Inventory pubInven = new Inventory();
         Inventory labInven = new Inventory();
         Inventory officeInven = new Inventory();
+        Inventory libraryInven = new Inventory();
+        Inventory classroomInven = new Inventory();
+        Inventory parkinglotInven = new Inventory();
+        
+        //give items for rooms and player
+        outsideInven.addItem("someone's_purse");
+        parkinglotInven.addItem("quarter");
+        parkinglotInven.addItem("quarter");
+        parkinglotInven.addItem("quarter");
+        pubInven.addItem("glass_mug");
+        officeInven.addItem("yearbook");
+        officeInven.addItem("lockbox_key");
+        labInven.addItem("test_tube");
+        labInven.addItem("test_tube");
+        labInven.addItem("test_tube");
+        labInven.addItem("alien_speciman");
+        labInven.addItem("beaker");
+        classroomInven.addItem("blue_calculator");
+        classroomInven.addItem("pink_calculator");
+        classroomInven.addItem("gray_calculator");
+        classroomInven.addItem("someone's_homework");
+        classroomInven.addItem("someone_else's_homework");
+        classroomInven.addItem("dull_pencil");
+        classroomInven.addItem("empty_pen");
+        classroomInven.addItem("whiteboard_eraser");
+        libraryInven.addItem("Merium-Webster_Dictionary-By_Merium_and_Webster");
+        libraryInven.addItem("50_Shades_of_White:A_Rightous_Parody_of_50_Shades_of_Grey-By_Jacob_Rispoli");
+        libraryInven.addItem("The_Lord_of_the_Rings:The_Complete_Story-By_J.R.R.Tolkien");
+        libraryInven.addItem("Star_Wars:The_Clone_Wars,A_'brief'_2,000_page_summary_of_every_season-By_George_Lucas");
+        libraryInven.addItem("Peace_and_War:_Stories_of_WWII-Some_Historian_Somewhere");
+        libraryInven.addItem("The_History_of_the_World:A_'brief'_3,500_page_summary,starting_with_micro-organisms!-A_Crazier_Historian_Somewhere");
+        libraryInven.addItem("An introduction to Micro-Organisms - Some Biologist Somewhere");
+        libraryInven.addItem("Guide_for_Dummies:Zombie_Survival_Guide-By_Artemis");
+        libraryInven.addItem("A_Hitchhikers_Guide_to_the_Galaxy-By_A_Hitchhiker,who_lives_in_a_galaxy_far_far_away");
+        libraryInven.addItem("Eggs_for_Javaheads-By_Professor_Crosbie");
+        libraryInven.addItem("Java_for_Eggheads-By_Professor_Crosbie");
+        libraryInven.addItem("A_cookbook_for_Java_Eggheads-By_Professor_Crosbie");
+        
+        outside.setInventory(outsideInven);
+        theater.setInventory(theaterInven);
+        pub.setInventory(pubInven);
+        lab.setInventory(labInven);
+        classroom.setInventory(classroomInven);
+        office.setInventory(officeInven);
+        parkinglot.setInventory(parkinglotInven);
+        library.setInventory(libraryInven);
         
         // initialise room exits
         outside.setExit("east", theater);
-        outside.setExit("south", lab);
+        outside.setExit("south", classroom);
         outside.setExit("west", pub);
         outside.setExit("north", parkinglot);
 
         theater.setExit("west", outside);
 
         pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
+        pub.setExit("west", library);
+        
+        library.setExit("secret", outside);
+        library.setExit("east", pub);
+        
+        classroom.setExit("north", outside);
+        classroom.setExit("south", lab);
+        
+        lab.setExit("north", classroom);
         lab.setExit("east", office);
 
         office.setExit("west", lab);
+        office.setExit("secret", outside);
         
         parkinglot.setExit("south", outside);
 
@@ -136,6 +195,10 @@ public class Game
             case TAKE:
                 takeItem(command);
                 break;
+                
+            case EXAMINE:
+                viewInventory(command);
+                break;
         }
         return wantToQuit;
     }
@@ -198,8 +261,36 @@ public class Game
         }
     }
     
-    private String takeItem(Command command) {
-        
-        return "This room doesn't have that item!";
+    private void takeItem(Command command) {
+        if( !( command.hasSecondWord() ) ) {
+            System.out.println("Take what?");
+            return;
+        }
+        String item = command.getSecondWord();
+        Inventory currentInventory = currentRoom.getInventory();
+        if(currentInventory.findItem(item) == true) {
+            System.out.println("You've picked up " + item);
+            currentInventory.removeItem(item);
+            playerInven.addItem(item);
+        } else {
+            System.out.println("I didn't find that item");
+        }
+    }
+    private void viewInventory(Command command) {
+        if(!( command.hasSecondWord() ) ) {
+            System.out.println("View your inventory or examine the room?");
+            return;
+        }
+        String examine = command.getSecondWord().toLowerCase();
+        Inventory currentInventory = currentRoom.getInventory();
+        if(examine.equals("player")){
+            System.out.println("Here's your inventory:");
+            playerInven.printInventory(true);
+        } else if(examine.equals("room")){
+            System.out.println("Here's whats in the room:");
+            currentInventory.printInventory(false);
+        } else {
+            System.out.println("I didn't get that. Your options are player, or room.");
+        }
     }
 }
