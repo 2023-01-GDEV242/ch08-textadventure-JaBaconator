@@ -1,0 +1,3 @@
+This is the Features text I was asked to create.
+
+I'm currently working on an inventory system, but I'm having trouble setting it up for the rooms, and then the player.
