@@ -26,12 +26,27 @@ public class Game
     public HashMap<Room, Inventory> roomInventories;
     
     /**
+     * 
+     *
+     *
+     */
+    public static void main(String[] args)
+    {
+        Game g = new Game();
+        g.play();
+        
+    }
+    
+    
+    
+    /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
         createRooms();
         parser = new Parser();
+        
     }
 
     /**
@@ -39,7 +54,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office, parkinglot, library, classroom;
+        Room outside, theater, pub, lab, office, parkinglot, library, classroom, highway, cafe, gym, lock_room, advising, arts, planetarium, moon, observatory, lab2, kitchen, limbo;
         
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -51,8 +66,22 @@ public class Game
         parkinglot = new Room("in the parking lot");
         library = new Room("in the library");
         
+        //Newer rooms
+        highway = new Room("outside on the highway");
+        cafe = new Room("in a cafeteria");
+        gym = new Room("in the campus gym");
+        lock_room = new Room("locked in a locker room");
+        advising = new Room("waiting in the torture chamber known as advising and counseling");
+        arts = new Room("in the arts building");
+        planetarium = new Room("in the planetarium");
+        observatory = new Room("in the observatory");
+        moon = new Room("ON THE MOON!?");
+        lab2 = new Room("in the science lab");
+        kitchen = new Room("in the kitchen");
+        limbo = new Room("in Limbo. What does death feel like?");
+        
         // create room inventories
-        // and create player inventory
+        // and create player inventory - No longer here
         Inventory outsideInven = new Inventory();
         Inventory theaterInven = new Inventory();
         Inventory pubInven = new Inventory();
@@ -61,6 +90,20 @@ public class Game
         Inventory libraryInven = new Inventory();
         Inventory classroomInven = new Inventory();
         Inventory parkinglotInven = new Inventory();
+        
+        //New inventories
+        Inventory highwayInven = new Inventory();
+        Inventory cafeInven = new Inventory();
+        Inventory gymInven = new Inventory();
+        Inventory lock_roomInven = new Inventory();
+        Inventory advisingInven = new Inventory();
+        Inventory artsInven = new Inventory();
+        Inventory planetariumInven = new Inventory();
+        Inventory observatoryInven = new Inventory();
+        Inventory moonInven = new Inventory();
+        Inventory lab2Inven = new Inventory();
+        Inventory kitchenInven = new Inventory();
+        Inventory limboInven = new Inventory();
         
         //give items for rooms and player
         outsideInven.addItem("someone's_purse");
@@ -87,15 +130,48 @@ public class Game
         libraryInven.addItem("50_Shades_of_White:A_Rightous_Parody_of_50_Shades_of_Grey-By_Jacob_Rispoli");
         libraryInven.addItem("The_Lord_of_the_Rings:The_Complete_Story-By_J.R.R.Tolkien");
         libraryInven.addItem("Star_Wars:The_Clone_Wars,A_'brief'_2,000_page_summary_of_every_season-By_George_Lucas");
-        libraryInven.addItem("Peace_and_War:_Stories_of_WWII-Some_Historian_Somewhere");
-        libraryInven.addItem("The_History_of_the_World:A_'brief'_3,500_page_summary,starting_with_micro-organisms!-A_Crazier_Historian_Somewhere");
-        libraryInven.addItem("An introduction to Micro-Organisms - Some Biologist Somewhere");
+        libraryInven.addItem("Peace_and_War:Stories_of_WWII-Some_Historian_Somewhere");
+        libraryInven.addItem("The_History_of_the_World:A_'brief'_13,500_page_summary,_starting_with_micro-organisms!-A_Crazier_Historian_Somewhere");
+        libraryInven.addItem("An_introduction_to_Micro-Organisms-Some_Biologist_Somewhere");
         libraryInven.addItem("Guide_for_Dummies:Zombie_Survival_Guide-By_Artemis");
-        libraryInven.addItem("A_Hitchhikers_Guide_to_the_Galaxy-By_A_Hitchhiker,who_lives_in_a_galaxy_far_far_away");
+        libraryInven.addItem("A_Hitchhikers_Guide_to_the_Galaxy-By_A_Hitchhiker,_who_lives_in_a_galaxy_far_far_away");
         libraryInven.addItem("Eggs_for_Javaheads-By_Professor_Crosbie");
         libraryInven.addItem("Java_for_Eggheads-By_Professor_Crosbie");
         libraryInven.addItem("A_cookbook_for_Java_Eggheads-By_Professor_Crosbie");
         
+        //give items to players.
+        artsInven.addItem("paint_brush");
+        artsInven.addItem("clay_wire");
+        cafeInven.addItem("cafeteria_tray");
+        cafeInven.addItem("stale_bread");
+        cafeInven.addItem("old_smelly_lunchable"); 
+        lab2Inven.addItem("syringe");
+        lab2Inven.addItem("purple_stuff");
+        lab2Inven.addItem("dead_body");
+        pubInven.addItem("alcohol");
+        pubInven.addItem("lighter");
+        kitchenInven.addItem("rag");
+        kitchenInven.addItem("knife");
+        gymInven.addItem("baseball_bat");
+        gymInven.addItem("shorts");
+        gymInven.addItem("sports_bra");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        lock_roomInven.addItem("socks");
+        labInven.addItem("computer_chip");
+        labInven.addItem("computer_chip");
+        
+        
+        //Setting up room inventories
         outside.setInventory(outsideInven);
         theater.setInventory(theaterInven);
         pub.setInventory(pubInven);
@@ -105,6 +181,21 @@ public class Game
         parkinglot.setInventory(parkinglotInven);
         library.setInventory(libraryInven);
         
+        
+        //setting up the inventories 2.0!!
+        highway.setInventory(highwayInven);
+        cafe.setInventory(cafeInven);
+        gym.setInventory(gymInven);
+        lock_room.setInventory(lock_roomInven);
+        advising.setInventory(advisingInven);
+        arts.setInventory(artsInven);
+        planetarium.setInventory(planetariumInven);
+        observatory.setInventory(observatoryInven);
+        moon.setInventory(moonInven);
+        lab2.setInventory(lab2Inven);
+        kitchen.setInventory(kitchenInven);
+        limbo.setInventory(limboInven);
+        
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", classroom);
@@ -112,24 +203,75 @@ public class Game
         outside.setExit("north", parkinglot);
 
         theater.setExit("west", outside);
+        theater.setExit("south", arts);
+        theater.setExit("east", library);
 
         pub.setExit("east", outside);
         pub.setExit("west", library);
+        pub.setExit("south", cafe);
         
         library.setExit("secret", outside);
         library.setExit("east", pub);
+        library.setExit("north", planetarium);
+        library.setExit("west", theater);
+        library.setExit("vent", gym);
         
         classroom.setExit("north", outside);
         classroom.setExit("south", lab);
+        classroom.setExit("west", cafe);
+        classroom.setExit("east", arts);
         
         lab.setExit("north", classroom);
         lab.setExit("east", office);
 
         office.setExit("west", lab);
         office.setExit("secret", outside);
+        office.setExit("east", advising);
         
         parkinglot.setExit("south", outside);
-
+        parkinglot.setExit("north", highway);
+        parkinglot.setExit("west", observatory);
+        
+        //setting up room exits part 2
+        highway.setExit("south", parkinglot);
+        highway.setExit("elevator?", moon);
+        
+        advising.setExit("west", office);
+        advising.setExit("secret", moon);
+        
+        arts.setExit("north", theater);
+        arts.setExit("west", classroom);
+        
+        cafe.setExit("north", pub);
+        cafe.setExit("south", kitchen);
+        cafe.setExit("east", classroom);
+        cafe.setExit("west", gym);
+        
+        gym.setExit("west", lock_room);
+        gym.setExit("south", lab2);
+        gym.setExit("east", cafe);
+        gym.setExit("vent", library);
+        
+        kitchen.setExit("west", lab2);
+        kitchen.setExit("north", cafe);
+        
+        //science lab
+        lab2.setExit("north", gym);
+        lab2.setExit("east", kitchen);
+        
+        lock_room.setExit("locked", planetarium);
+        
+        planetarium.setExit("south", library);
+        planetarium.setExit("east", observatory);
+        
+        observatory.setExit("west", planetarium);
+        observatory.setExit("east", parkinglot);
+        observatory.setExit("secret", outside);
+        
+        moon.setExit("secret", limbo);
+        
+        limbo.setExit("secret", limbo);
+        
         currentRoom = outside;  // start game outside
     }
 
@@ -160,6 +302,8 @@ public class Game
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("This game is rated M for Mature AND rated R, it's that gruesome.");
+        System.out.println("No REAL people were hurt in the making or playing of this game. Fake people. That's up to you.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }

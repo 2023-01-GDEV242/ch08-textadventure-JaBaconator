@@ -11,6 +11,7 @@ public enum CommandWord
     // corresponding user interface string.
     GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), TAKE("take"), EXAMINE("examine");
     //command word Take has been added.
+    //command word examine has been added
     // The command string.
     private String commandString;
     
