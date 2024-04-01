@@ -9,13 +9,13 @@ public class Inventory
 {
     //each inventory has an arraylist which 
     //stores string descriptions of items or objects.
-    private ArrayList<String> inventory;
+    private ArrayList<Items> inventory;
 
     /**
      * Constructor for objects of class Inventory
      */
     public Inventory() {
-        this.inventory = new ArrayList<String>();
+        this.inventory = new ArrayList<Items>();
     }
 
     // prints everything in the inventory
@@ -31,17 +31,17 @@ public class Inventory
         }
     }
     
-    public void addItem(String item) {
+    public void addItem(Items item) {
         inventory.add(item);
     }
-    public void removeItem(String item) {
+    public void removeItem(Items item) {
         inventory.remove(item);
     }
-    public boolean findItem(String item){ 
+    public boolean findItem(Items item){ 
         return inventory.contains(item);
     }
-    public void swapItem(String item1, String item2, int location, ArrayList<String> arrlist){
-        ArrayList<String> temp = new ArrayList<String>();
+    public void swapItem(Items item1, Items item2, int location, ArrayList<Items> arrlist){
+        ArrayList<Items> temp = new ArrayList<Items>();
         //add old item to temp array list
         temp.add(item1);
         //replace new item with old item.
